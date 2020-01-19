@@ -3,7 +3,7 @@ import React from "react";
 const InputField = ({ label, type, name, onChange }) => {
   return (
     <div className="measure">
-      <label htmlFor={name} className="f6 b db mb2">
+      <label htmlFor={name} className="f4 b db mb2">
         {label}
       </label>
       <input

@@ -3,7 +3,7 @@ import React from "react";
 const TextArea = ({ label, name, onChange }) => {
   return (
     <div>
-      <label htmlFor={name} className="f6 b db mb2">
+      <label htmlFor={name} className="f4 b db mb2">
         {label}
       </label>
       <textarea
