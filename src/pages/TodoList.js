@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const TodoList = ({ dummies }) => {
   return (
@@ -10,6 +11,15 @@ const TodoList = ({ dummies }) => {
           </li>
         );
       })}
+      <Link
+        className="link black"
+        style={{ position: "absolute", bottom: "1rem", right: "1rem" }}
+        to="/create"
+      >
+        <div className="ba br-100 h3 w3 flex justify-center items-center">
+          +
+        </div>
+      </Link>
     </ul>
   );
 };
