@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import InputField from "../common/InputField";
 import TextArea from "../common/TextArea";
+import { Link } from "react-router-dom";
 
 const initialValues = {
   title: "",
@@ -9,35 +10,42 @@ const initialValues = {
   status: "pending",
   due_date: ""
 };
-const CreateTodo = params => {
+const CreateTodo = ({ handleCreateTodo, history }) => {
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={(values, actions) => {
-        console.log("values", values);
-        actions.setSubmitting(false);
-      }}
-    >
-      {props => {
-        return (
-          <form onSubmit={props.handleSubmit}>
-            <InputField
-              label="Title"
-              type="text"
-              name="title"
-              onChange={props.handleChange}
-            />
-            <TextArea
-              label="Description"
-              type="text"
-              name="description"
-              onChange={props.handleChange}
-            />
-            <button type="submit">Save</button>
-          </form>
-        );
-      }}
-    </Formik>
+    <div>
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values, actions) => {
+          handleCreateTodo(values);
+          actions.setSubmitting(false);
+          history.push("/");
+        }}
+      >
+        {({ handleSubmit, handleChange }) => {
+          return (
+            <form onSubmit={handleSubmit}>
+              <InputField
+                label="Title"
+                type="text"
+                name="title"
+                onChange={handleChange}
+              />
+              <TextArea
+                label="Description"
+                type="text"
+                name="description"
+                onChange={handleChange}
+              />
+              <button type="reset">Reset</button>
+              <button type="submit">Save</button>
+            </form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 
