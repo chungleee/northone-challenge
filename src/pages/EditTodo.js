@@ -11,6 +11,7 @@ import { TodoContext } from "../context";
 const EditTodo = ({ location, history }) => {
   const { todo } = location.state;
   const { handleEditTodo } = useContext(TodoContext);
+
   return (
     <div className="pa3">
       <div>
