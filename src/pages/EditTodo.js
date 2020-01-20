@@ -92,13 +92,6 @@ const EditTodo = ({ location, history }) => {
                   })}
                 </ul>
               ) : null}
-              {/*todo.tasks.length > 0 ? (
-                <ul>
-                  {todo.tasks.map(task => {
-                    return <li key={task.id}>{task.task}</li>;
-                  })}
-                </ul>
-              ) : null*/}
               <div>
                 <label htmlFor="due_date" className="f4 b db mb2">
                   Set due date
