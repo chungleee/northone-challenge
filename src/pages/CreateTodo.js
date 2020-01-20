@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Formik } from "formik";
 import InputField from "../common/InputField";
 import TextArea from "../common/TextArea";
@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
 import uuid from "uuid/v4";
 import fieldSchema from "../validation";
+import { TodoContext } from "../context";
 
 const initialValues = {
   title: "",
@@ -15,16 +16,14 @@ const initialValues = {
   status: "pending",
   due_date: new Date()
 };
-const CreateTodo = ({ handleCreateTodo, history }) => {
+const CreateTodo = ({ history }) => {
   const [tasks, setTasks] = useState([]);
-
+  const { handleCreateTodo } = useContext(TodoContext);
   return (
     <div className="ph3">
-      <div>
-        <Link className="link underline black f4" to="/">
-          Homepage
-        </Link>
-      </div>
+      <Link className="link underline black f4" to="/">
+        <i className="fas fa-home"></i>
+      </Link>
       <Formik
         initialValues={initialValues}
         validationSchema={fieldSchema}
@@ -67,7 +66,8 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                     onClick={() => {
                       const newTask = {
                         id: uuid(),
-                        task: values.tasks
+                        task: values.tasks,
+                        completed: false
                       };
                       setTasks(state => {
                         return [...state, newTask];
