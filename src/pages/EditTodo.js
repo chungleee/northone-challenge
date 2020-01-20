@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik } from "formik";
+import uuid from "uuid/v4";
 import InputField from "../common/InputField";
 import TextArea from "../common/TextArea";
 import { Link } from "react-router-dom";
@@ -11,7 +12,7 @@ import { TodoContext } from "../context";
 const EditTodo = ({ location, history }) => {
   const { todo } = location.state;
   const { handleEditTodo } = useContext(TodoContext);
-
+  const [newTasks, setNewTasks] = useState(todo.tasks);
   return (
     <div className="pa3">
       <div>
@@ -24,11 +25,13 @@ const EditTodo = ({ location, history }) => {
           title: todo.title,
           description: todo.description,
           status: todo.status,
+          tasks: "",
           due_date: todo.due_date
         }}
         validationSchema={fieldSchema}
         validateOnChange={false}
         onSubmit={values => {
+          values.tasks = newTasks;
           handleEditTodo(todo._rev, todo._id, values);
           history.goBack();
         }}
@@ -53,6 +56,49 @@ const EditTodo = ({ location, history }) => {
                 errors={!errors.description ? null : errors.description}
               />
 
+              <div className="flex items-end justify-between">
+                <InputField
+                  label="Add some tasks"
+                  type="text"
+                  value={values.tasks}
+                  name="tasks"
+                  onChange={handleChange}
+                  errors={!errors.tasks ? null : errors.tasks}
+                />
+                <div>
+                  <button
+                    className="mb2"
+                    onClick={() => {
+                      const newTask = {
+                        id: uuid(),
+                        task: values.tasks,
+                        completed: false
+                      };
+                      setNewTasks(state => {
+                        return [...state, newTask];
+                      });
+                      setFieldValue("tasks", "");
+                    }}
+                    type="button"
+                  >
+                    Add
+                  </button>
+                </div>
+              </div>
+              {newTasks.length > 0 ? (
+                <ul>
+                  {newTasks.map(task => {
+                    return <li key={task.id}>{task.task}</li>;
+                  })}
+                </ul>
+              ) : null}
+              {/*todo.tasks.length > 0 ? (
+                <ul>
+                  {todo.tasks.map(task => {
+                    return <li key={task.id}>{task.task}</li>;
+                  })}
+                </ul>
+              ) : null*/}
               <div>
                 <label htmlFor="due_date" className="f4 b db mb2">
                   Set due date
