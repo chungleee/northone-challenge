@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { TodoContext } from "../context";
 
-const TodoList = ({ todos, loading, handleDeleteTodo }) => {
+const TodoList = () => {
+  const { todos, loading, handleDeleteTodo } = useContext(TodoContext);
   return (
     <ul className="list pa2">
       {loading ? (
