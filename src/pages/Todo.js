@@ -8,6 +8,13 @@ const Todo = ({ location, match }) => {
     <div>
       <h1 className="f3">{todo.title}</h1>
       <p>{todo.description}</p>
+      {todo.task !== undefined && todo.tasks.length > 0 ? (
+        <ul>
+          {todo.tasks.map(task => {
+            return <li key={task.id}>{task.task}</li>;
+          })}
+        </ul>
+      ) : null}
       <Link to={{ pathname: `${url}/edit`, state: { todo } }}>Edit todo</Link>
     </div>
   );
