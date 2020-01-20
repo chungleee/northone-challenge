@@ -4,6 +4,7 @@ import CreateTodo from "./pages/CreateTodo";
 import TodoList from "./pages/TodoList";
 import Todo from "./pages/Todo";
 import db from "./database";
+import EditTodo from "./pages/EditTodo";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -61,9 +62,16 @@ const App = () => {
       />
 
       <Route
-        path="/:todoId"
+        exact
+        path="/todo/:todoId"
         render={props => {
           return <Todo {...props} />;
+        }}
+      />
+      <Route
+        path="/todo/:todoId/edit"
+        render={props => {
+          return <EditTodo {...props} />;
         }}
       />
     </Router>
