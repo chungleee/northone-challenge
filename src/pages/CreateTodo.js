@@ -10,7 +10,7 @@ import uuid from "uuid/v4";
 const initialValues = {
   title: "",
   description: "",
-  task: "",
+  tasks: "",
   status: "pending",
   due_date: new Date()
 };
@@ -25,12 +25,8 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          console.log("values", values);
-          const todo = {
-            tasks,
-            ...values
-          };
-          handleCreateTodo(todo);
+          values.tasks = tasks;
+          handleCreateTodo(values);
           history.push("/");
         }}
       >
@@ -53,8 +49,8 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                 <InputField
                   label="Add some tasks"
                   type="text"
-                  value={values.task}
-                  name="task"
+                  value={values.tasks}
+                  name="tasks"
                   onChange={handleChange}
                 />
                 <input
@@ -63,12 +59,12 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                   onClick={() => {
                     const newTask = {
                       id: uuid(),
-                      task: values.task
+                      task: values.tasks
                     };
                     setTasks(state => {
                       return [...state, newTask];
                     });
-                    setFieldValue("task", "");
+                    setFieldValue("tasks", "");
                   }}
                 />
               </div>
