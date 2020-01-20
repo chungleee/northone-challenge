@@ -1,75 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CreateTodo from "./pages/CreateTodo";
 import TodoList from "./pages/TodoList";
 import Todo from "./pages/Todo";
-import db from "./database";
 import EditTodo from "./pages/EditTodo";
+import { TodoContext } from "./context";
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
-  const [loading, setLoading] = useState(null);
-
-  const handleCreateTodo = async todo => {
-    try {
-      const response = await db.post(todo);
-      const newTodo = await db.get(response.id);
-      setTodos(state => {
-        return [...state, newTodo];
-      });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleGetTodos = async () => {
-    try {
-      setLoading(true);
-      const res = await db.allDocs({ include_docs: true });
-      const todos = res.rows.map(row => {
-        return row.doc;
-      });
-      setLoading(false);
-      setTodos(todos);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleEditTodo = async (_rev, _id, editedTodo) => {
-    try {
-      const response = await db.put({
-        _rev,
-        _id,
-        ...editedTodo
-      });
-      const updatedTodo = await db.get(response.id);
-      const updatedList = todos.map(todo => {
-        if (todo._id === updatedTodo._id) {
-          return updatedTodo;
-        }
-        return todo;
-      });
-      setTodos(updatedList);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleDeleteTodo = async (_id, _rev) => {
-    try {
-      const response = await db.remove(_id, _rev);
-      console.log("response", response);
-      const updatedList = todos.filter(todo => {
-        if (todo._id !== response.id) {
-          return todo;
-        }
-      });
-      setTodos(updatedList);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { handleGetTodos } = useContext(TodoContext);
 
   useEffect(() => {
     handleGetTodos();
@@ -77,29 +15,18 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        <h1 className="f3 tc ph4">NorthOne Front End Challenge</h1>
-      </div>
-
       <Route
         exact
         path="/"
         render={props => {
-          return (
-            <TodoList
-              loading={loading}
-              todos={todos}
-              handleDeleteTodo={handleDeleteTodo}
-              {...props}
-            />
-          );
+          return <TodoList {...props} />;
         }}
       />
 
       <Route
         path="/create"
         render={props => {
-          return <CreateTodo handleCreateTodo={handleCreateTodo} {...props} />;
+          return <CreateTodo {...props} />;
         }}
       />
 
@@ -114,7 +41,7 @@ const App = () => {
       <Route
         path="/todo/:todoId/edit"
         render={props => {
-          return <EditTodo {...props} handleEditTodo={handleEditTodo} />;
+          return <EditTodo {...props} />;
         }}
       />
     </Router>
