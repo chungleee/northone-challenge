@@ -36,6 +36,26 @@ const App = () => {
     }
   };
 
+  const handleEditTodo = async (_rev, _id, editedTodo) => {
+    try {
+      const response = await db.put({
+        _rev,
+        _id,
+        ...editedTodo
+      });
+      const updatedTodo = await db.get(response.id);
+      const updatedList = todos.map(todo => {
+        if (todo._id === updatedTodo._id) {
+          return updatedTodo;
+        }
+        return todo;
+      });
+      setTodos(updatedList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     handleGetTodos();
   }, []);
@@ -43,7 +63,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <h1 className="f2 tc ph4">NorthOne Front End Challenge</h1>
+        <h1 className="f3 tc ph4">NorthOne Front End Challenge</h1>
       </div>
 
       <Route
@@ -68,10 +88,11 @@ const App = () => {
           return <Todo {...props} />;
         }}
       />
+
       <Route
         path="/todo/:todoId/edit"
         render={props => {
-          return <EditTodo {...props} />;
+          return <EditTodo {...props} handleEditTodo={handleEditTodo} />;
         }}
       />
     </Router>
