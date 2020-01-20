@@ -4,6 +4,7 @@ const TodoContext = createContext();
 
 const TodoProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
+  const [todo, setTodo] = useState();
   const [loading, setLoading] = useState(null);
 
   const handleCreateTodo = async todo => {
@@ -13,6 +14,15 @@ const TodoProvider = ({ children }) => {
       setTodos(state => {
         return [...state, newTodo];
       });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleGetTodoById = async id => {
+    try {
+      const response = await db.get(id);
+      setTodo(response);
     } catch (error) {
       console.error(error);
     }
@@ -78,7 +88,9 @@ const TodoProvider = ({ children }) => {
     <TodoContext.Provider
       value={{
         loading,
+        todo,
         todos,
+        handleGetTodoById,
         handleGetTodos,
         handleCreateTodo,
         handleEditTodo,
