@@ -5,13 +5,16 @@ import TextArea from "../common/TextArea";
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
+import fieldSchema from "../validation";
 
 const EditTodo = ({ location, handleEditTodo, history }) => {
   const { todo } = location.state;
   return (
-    <div>
+    <div className="pa3">
       <div>
-        <Link to="/">Home</Link>
+        <Link className="link black underline f4" to="/">
+          Homepage
+        </Link>
       </div>
       <Formik
         initialValues={{
@@ -20,20 +23,23 @@ const EditTodo = ({ location, handleEditTodo, history }) => {
           status: todo.status,
           due_date: todo.due_date
         }}
-        onSubmit={(values, actions) => {
+        validationSchema={fieldSchema}
+        validateOnChange={false}
+        onSubmit={values => {
           handleEditTodo(todo._rev, todo._id, values);
           history.push("/");
         }}
       >
-        {({ handleSubmit, handleChange, setFieldValue, values }) => {
+        {({ handleSubmit, handleChange, setFieldValue, values, errors }) => {
           return (
-            <form onSubmit={handleSubmit}>
+            <form className="mt4" onSubmit={handleSubmit}>
               <InputField
                 label="Title"
                 type="text"
                 name="title"
                 value={values.title}
                 onChange={handleChange}
+                errors={!errors.title ? null : errors.title}
               />
               <TextArea
                 label="Description"
@@ -41,7 +47,9 @@ const EditTodo = ({ location, handleEditTodo, history }) => {
                 name="description"
                 value={values.description}
                 onChange={handleChange}
+                errors={!errors.description ? null : errors.description}
               />
+
               <div>
                 <label htmlFor="due_date" className="f4 b db mb2">
                   Set due date
