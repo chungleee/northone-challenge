@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
 import uuid from "uuid/v4";
+import fieldSchema from "../validation";
 
 const initialValues = {
   title: "",
@@ -26,6 +27,8 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
       </div>
       <Formik
         initialValues={initialValues}
+        validationSchema={fieldSchema}
+        validateOnChange={false}
         onSubmit={values => {
           values.tasks = tasks;
           handleCreateTodo(values);
@@ -49,7 +52,7 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                 onChange={handleChange}
                 errors={!errors.description ? null : errors.description}
               />
-              <div>
+              <div className="flex items-end justify-between">
                 <InputField
                   label="Add some tasks"
                   type="text"
@@ -58,20 +61,24 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                   onChange={handleChange}
                   errors={!errors.tasks ? null : errors.tasks}
                 />
-                <input
-                  type="button"
-                  value="Add"
-                  onClick={() => {
-                    const newTask = {
-                      id: uuid(),
-                      task: values.tasks
-                    };
-                    setTasks(state => {
-                      return [...state, newTask];
-                    });
-                    setFieldValue("tasks", "");
-                  }}
-                />
+                <div>
+                  <button
+                    className="mb2"
+                    onClick={() => {
+                      const newTask = {
+                        id: uuid(),
+                        task: values.tasks
+                      };
+                      setTasks(state => {
+                        return [...state, newTask];
+                      });
+                      setFieldValue("tasks", "");
+                    }}
+                    type="button"
+                  >
+                    Add
+                  </button>
+                </div>
               </div>
               {tasks.length > 0 ? (
                 <ul>
