@@ -55,6 +55,7 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                   timeIntervals={30}
                   timeCaption="time"
                   dateFormat="MMMM d, yyyy h:mm aa"
+                  placeholderText="Select a date and time"
                 />
               </div>
               <button type="reset">Reset</button>
