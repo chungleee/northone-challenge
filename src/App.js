@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import CreateTodo from "./pages/CreateTodo";
 import TodoList from "./pages/TodoList";
+import Todo from "./pages/Todo";
 import db from "./database";
 
 const App = () => {
@@ -56,6 +57,13 @@ const App = () => {
         path="/create"
         render={props => {
           return <CreateTodo handleCreateTodo={handleCreateTodo} {...props} />;
+        }}
+      />
+
+      <Route
+        path="/:todoId"
+        render={props => {
+          return <Todo {...props} />;
         }}
       />
     </Router>
