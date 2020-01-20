@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TodoList = ({ todos, loading }) => {
+const TodoList = ({ todos, loading, handleDeleteTodo }) => {
   return (
     <ul className="list pa2">
       {loading ? (
@@ -11,8 +11,12 @@ const TodoList = ({ todos, loading }) => {
       ) : (
         todos.map(todo => {
           return (
-            <li className="ba br3 mb1" key={todo._id}>
+            <li
+              className="flex justify-between items-center  ba br3 mb1 ph2 grow"
+              key={todo._id}
+            >
               <Link
+                className="link black"
                 to={{
                   pathname: `/todo/${todo._id}`,
                   state: {
@@ -22,6 +26,14 @@ const TodoList = ({ todos, loading }) => {
               >
                 <h3 className="f4 ttc">{todo.title}</h3>
               </Link>
+              <div>
+                <i
+                  onClick={() => {
+                    handleDeleteTodo(todo._id, todo._rev);
+                  }}
+                  className="far fa-trash-alt red pointer"
+                ></i>
+              </div>
             </li>
           );
         })
