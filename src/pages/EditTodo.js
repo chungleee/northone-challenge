@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik";
 import InputField from "../common/InputField";
 import TextArea from "../common/TextArea";
@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.min.css";
 import fieldSchema from "../validation";
+import { TodoContext } from "../context";
 
-const EditTodo = ({ location, handleEditTodo, history }) => {
+const EditTodo = ({ location, history }) => {
   const { todo } = location.state;
+  const { handleEditTodo } = useContext(TodoContext);
   return (
     <div className="pa3">
       <div>
@@ -27,7 +29,7 @@ const EditTodo = ({ location, handleEditTodo, history }) => {
         validateOnChange={false}
         onSubmit={values => {
           handleEditTodo(todo._rev, todo._id, values);
-          history.push("/");
+          history.goBack();
         }}
       >
         {({ handleSubmit, handleChange, setFieldValue, values, errors }) => {
