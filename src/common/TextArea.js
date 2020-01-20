@@ -11,7 +11,7 @@ const TextArea = ({ label, name, onChange, value }) => {
         onChange={onChange}
         value={value}
         name={name}
-        className="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2 h4"
+        className="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2 h3"
       ></textarea>
       <small className="f6 black-60">helper text</small>
     </div>
