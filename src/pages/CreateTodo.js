@@ -18,32 +18,36 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
   const [tasks, setTasks] = useState([]);
 
   return (
-    <div>
+    <div className="ph3">
       <div>
-        <Link to="/">Home</Link>
+        <Link className="link underline black f4" to="/">
+          Homepage
+        </Link>
       </div>
       <Formik
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
+        onSubmit={values => {
           values.tasks = tasks;
           handleCreateTodo(values);
           history.push("/");
         }}
       >
-        {({ handleSubmit, handleChange, setFieldValue, values }) => {
+        {({ handleSubmit, handleChange, setFieldValue, values, errors }) => {
           return (
-            <form onSubmit={handleSubmit}>
+            <form className="mt4" onSubmit={handleSubmit}>
               <InputField
                 label="Title"
                 type="text"
                 name="title"
                 onChange={handleChange}
+                errors={!errors.title ? null : errors.title}
               />
               <TextArea
                 label="Description"
                 type="text"
                 name="description"
                 onChange={handleChange}
+                errors={!errors.description ? null : errors.description}
               />
               <div>
                 <InputField
@@ -52,6 +56,7 @@ const CreateTodo = ({ handleCreateTodo, history }) => {
                   value={values.tasks}
                   name="tasks"
                   onChange={handleChange}
+                  errors={!errors.tasks ? null : errors.tasks}
                 />
                 <input
                   type="button"
