@@ -56,6 +56,21 @@ const App = () => {
     }
   };
 
+  const handleDeleteTodo = async (_id, _rev) => {
+    try {
+      const response = await db.remove(_id, _rev);
+      console.log("response", response);
+      const updatedList = todos.filter(todo => {
+        if (todo._id !== response.id) {
+          return todo;
+        }
+      });
+      setTodos(updatedList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     handleGetTodos();
   }, []);
@@ -70,7 +85,14 @@ const App = () => {
         exact
         path="/"
         render={props => {
-          return <TodoList loading={loading} todos={todos} {...props} />;
+          return (
+            <TodoList
+              loading={loading}
+              todos={todos}
+              handleDeleteTodo={handleDeleteTodo}
+              {...props}
+            />
+          );
         }}
       />
 
