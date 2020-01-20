@@ -6,7 +6,10 @@ const Todo = ({ location, match }) => {
   console.log("todo", todo);
   const { url } = match;
   return (
-    <div>
+    <div className="pa3">
+      <Link className="link black underline f4" to="/">
+        Homepage
+      </Link>
       <h1 className="f3">{todo.title}</h1>
       <p>{todo.description}</p>
       {todo.tasks !== undefined && todo.tasks.length > 0 ? (
@@ -16,7 +19,12 @@ const Todo = ({ location, match }) => {
           })}
         </ul>
       ) : null}
-      <Link to={{ pathname: `${url}/edit`, state: { todo } }}>Edit todo</Link>
+      <Link
+        className="link black underline f4"
+        to={{ pathname: `${url}/edit`, state: { todo } }}
+      >
+        Edit todo
+      </Link>
     </div>
   );
 };
