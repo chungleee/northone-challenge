@@ -12,7 +12,16 @@ const TodoList = ({ todos, loading }) => {
         todos.map(todo => {
           return (
             <li className="ba br3 mb1" key={todo._id}>
-              <h3 className="f4 ttc">{todo.title}</h3>
+              <Link
+                to={{
+                  pathname: `/todo/${todo._id}`,
+                  state: {
+                    todo
+                  }
+                }}
+              >
+                <h3 className="f4 ttc">{todo.title}</h3>
+              </Link>
             </li>
           );
         })
