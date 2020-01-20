@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({ label, type, name, onChange, value }) => {
+const InputField = ({ label, type, name, onChange, value, errors }) => {
   return (
     <div className="measure">
       <label htmlFor={name} className="f4 b db mb2">
@@ -13,7 +13,9 @@ const InputField = ({ label, type, name, onChange, value }) => {
         onChange={onChange}
         value={value}
       />
-      <small className="f6 black-60 db mb2">helper text</small>
+      {errors ? (
+        <small className="f6 black-60 db mb2 red">{errors}</small>
+      ) : null}
     </div>
   );
 };
