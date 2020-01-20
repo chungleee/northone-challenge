@@ -5,9 +5,9 @@ const TodoList = ({ todos, loading, handleDeleteTodo }) => {
   return (
     <ul className="list pa2">
       {loading ? (
-        <div>Loading...</div>
+        <div className="tc">Loading...</div>
       ) : !todos.length ? (
-        <div>Todo List is empty!</div>
+        <div className="tc">Todo List is empty!</div>
       ) : (
         todos.map(todo => {
           return (
