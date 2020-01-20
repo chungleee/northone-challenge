@@ -1,11 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TodoContext } from "../context";
 
-const Todo = ({ location, match }) => {
-  const { todo } = location.state;
-  const { url } = match;
-  const { handleToggleTask } = useContext(TodoContext);
+const Todo = ({ match }) => {
+  const { url, params } = match;
+  const { handleToggleTask, handleGetTodoById, todo } = useContext(TodoContext);
+
+  useEffect(() => {
+    handleGetTodoById(params.todoId);
+  }, []);
+
+  if (!todo) {
+    return <div>Loading todo</div>;
+  }
+
   return (
     <div className="pa3">
       <Link className="link black underline f4" to="/">
