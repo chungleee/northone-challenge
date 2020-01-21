@@ -18,6 +18,16 @@ const Todo = ({ match }) => {
     return todo;
   };
 
+  const handleDeleteTask = task => {
+    const updatedTasks = todo.tasks.filter(taskToDelete => {
+      if (task.id !== taskToDelete.id) {
+        return taskToDelete;
+      }
+    });
+    todo.tasks = updatedTasks;
+    return todo;
+  };
+
   useEffect(() => {
     handleGetTodoById(params.todoId);
   }, []);
@@ -70,7 +80,13 @@ const Todo = ({ match }) => {
                       className="grow far fa-check-circle green pointer"
                     ></i>
                   )}
-                  <i className="grow fas fa-trash red ml1 pointer"></i>
+                  <i
+                    onClick={() => {
+                      const res = handleDeleteTask(task);
+                      handleEditTodo(todo._id, todo._rev, res);
+                    }}
+                    className="grow fas fa-trash red ml1 pointer"
+                  ></i>
                 </span>
               </li>
             );
