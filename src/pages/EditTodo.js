@@ -64,6 +64,23 @@ const EditTodo = ({ location, history }) => {
                   name="tasks"
                   onChange={handleChange}
                   errors={!errors.tasks ? null : errors.tasks}
+                  // onKeyDown={event => {
+                  //   if (
+                  //     event.key === "Enter" ||
+                  //     event.which === 13 ||
+                  //     event.code === "Enter"
+                  //   ) {
+                  //     const newTask = {
+                  //       id: uuid(),
+                  //       task: values.tasks,
+                  //       completed: false
+                  //     };
+                  //     setNewTasks(state => {
+                  //       return [...state, newTask];
+                  //     });
+                  //     setFieldValue("tasks", "");
+                  //   }
+                  // }}
                 />
                 <div>
                   <button
@@ -99,6 +116,7 @@ const EditTodo = ({ location, history }) => {
                 <DatePicker
                   name="due_date"
                   onChange={date => setFieldValue("due_date", date)}
+                  selected={Date.parse(values.due_date)}
                   showTimeSelect
                   timeFormat="HH:mm"
                   timeIntervals={30}
