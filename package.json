@@ -2,7 +2,7 @@
   "name": "northone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://chungleee.github.io/northone-challenge",
+  "homepage": "https://chungleee.github.io/northone-challenge",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
