@@ -20,7 +20,7 @@ const CreateTodo = ({ history }) => {
   const [tasks, setTasks] = useState([]);
   const { handleCreateTodo } = useContext(TodoContext);
   return (
-    <div className="ph3">
+    <div className="flex flex-column justify-center ph3 mw6-ns center-ns">
       <Link className="link underline black f4" to="/">
         <i className="fas fa-home"></i>
       </Link>
@@ -87,7 +87,7 @@ const CreateTodo = ({ history }) => {
                   })}
                 </ul>
               ) : null}
-              <div>
+              <div className="mb5">
                 <label htmlFor="due_date" className="f4 b db mb2">
                   Set due date
                 </label>
@@ -103,8 +103,12 @@ const CreateTodo = ({ history }) => {
                   placeholderText="Select a date and time"
                 />
               </div>
-              <button type="reset">Reset</button>
-              <button type="submit">Save</button>
+              <div className="flex mt5">
+                <div className="center">
+                  <button type="reset">Reset</button>
+                  <button type="submit">Save</button>
+                </div>
+              </div>
             </form>
           );
         }}

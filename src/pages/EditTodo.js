@@ -14,10 +14,10 @@ const EditTodo = ({ location, history }) => {
   const { handleEditTodo } = useContext(TodoContext);
   const [newTasks, setNewTasks] = useState(todo.tasks);
   return (
-    <div className="pa3">
+    <div className="flex flex-column justify-center ph3 mw6-ns center-ns">
       <div>
-        <Link className="link black underline f4" to="/">
-          Homepage
+        <Link className="link underline black f4" to="/">
+          <i className="fas fa-home"></i>
         </Link>
       </div>
       <Formik
@@ -92,7 +92,7 @@ const EditTodo = ({ location, history }) => {
                   })}
                 </ul>
               ) : null}
-              <div>
+              <div className="mb5">
                 <label htmlFor="due_date" className="f4 b db mb2">
                   Set due date
                 </label>
@@ -107,8 +107,12 @@ const EditTodo = ({ location, history }) => {
                   placeholderText="Select new date and time"
                 />
               </div>
-              <button type="reset">Reset</button>
-              <button type="submit">Save</button>
+              <div className="flex mt5">
+                <div className="center">
+                  <button type="reset">Reset</button>
+                  <button type="submit">Save</button>
+                </div>
+              </div>
             </form>
           );
         }}

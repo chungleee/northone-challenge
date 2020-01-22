@@ -9,11 +9,12 @@ const TodoList = () => {
     setValue(event.target.value);
   };
   return (
-    <ul className="list pa2">
+    <ul className="list pa2 w-70-ns flex-ns flex-column-ns center-ns">
       <input
         onChange={event => {
           handleOnChange(event);
         }}
+        placeholder="Type to search..."
         className="input-reset ba b--black-20 pa2 mb2 db w-100"
         type="text"
         aria-describedby="search box"
