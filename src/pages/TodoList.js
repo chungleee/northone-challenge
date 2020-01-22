@@ -9,7 +9,7 @@ const TodoList = () => {
     setValue(event.target.value);
   };
   return (
-    <ul className="list pa2 w-70-ns flex-ns flex-column-ns center-ns">
+    <ul className="list pa2  flex-ns flex-column-ns center-ns mw6-ns">
       <input
         onChange={event => {
           handleOnChange(event);

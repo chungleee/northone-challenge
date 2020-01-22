@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { TodoContext } from "../context";
 
@@ -37,7 +37,7 @@ const Todo = ({ match }) => {
   }
 
   return (
-    <div className="pa3">
+    <div className="pa3 mw6-ns center">
       <Link className="link black underline f4" to="/">
         <i className="fas fa-home"></i>
       </Link>
